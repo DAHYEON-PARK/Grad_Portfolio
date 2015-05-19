@@ -1,5 +1,4 @@
-package com.example.ttong;
-
+package com.example.ttong.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -7,7 +6,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-// hello world friends!!!
+import com.example.ttong.Fragment.FirstFragment;
+import com.example.ttong.Listener.TabListener;
+import com.example.ttong.R;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -16,8 +17,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar bar = getSupportActionBar();
-        bar.hide();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionbar.addTab(actionbar.newTab().setText("통화하기").setTabListener(new TabListener<FirstFragment>(this, "call_tab", FirstFragment.class)));
+
     }
 
     @Override
