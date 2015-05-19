@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar bar = getSupportActionBar();
+        bar.hide();
     }
 
     @Override
