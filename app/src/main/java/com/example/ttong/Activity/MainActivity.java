@@ -3,10 +3,11 @@ package com.example.ttong.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.ttong.Fragment.DialFragment;
+import com.example.ttong.Fragment.TtongFragment;
+import com.example.ttong.Fragment.HistoryFragment;
+import com.example.ttong.Fragment.ContactFragment;
 import com.example.ttong.Listener.TabListener;
 import com.example.ttong.R;
 
@@ -15,33 +16,24 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionbar.addTab(actionbar.newTab().setText("통화하기").setTabListener(new TabListener<DialFragment>(this, "call_tab", DialFragment.class)));
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        actionBar.addTab(actionBar.newTab().setText("Dial").setTabListener(new TabListener<DialFragment>(this,"dial",DialFragment.class)));
+
+        actionBar.addTab(actionBar.newTab().setText("TTong").setTabListener(new TabListener<TtongFragment>(this,"ttong",TtongFragment.class)));
+
+        actionBar.addTab(actionBar.newTab().setText("History").setTabListener(new TabListener<HistoryFragment>(this,"dial",HistoryFragment.class)));
+
+        actionBar.addTab(actionBar.newTab().setText("Contact").setTabListener(new TabListener<ContactFragment>(this,"dial",ContactFragment.class)));
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectedTab",getActionBar().getSelectedNavigationIndex());
     }
 }

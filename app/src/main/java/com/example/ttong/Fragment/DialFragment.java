@@ -1,22 +1,17 @@
 package com.example.ttong.Fragment;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * Created by cse109 on 2015-05-19.
- */
+import com.example.ttong.R;
+
 public class DialFragment extends Fragment{
-
-    Context context;
-
-    DialFragment(Context context){
-        this.context = context;
-    }
-
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_dial);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.fragment_dial, container, false);
+        return v;
     }
 }
