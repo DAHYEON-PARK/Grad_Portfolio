@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.ttong.Fragment.FirstFragment;
+import com.example.ttong.Fragment.DialFragment;
 import com.example.ttong.Listener.TabListener;
 import com.example.ttong.R;
 
@@ -19,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionbar.addTab(actionbar.newTab().setText("통화하기").setTabListener(new TabListener<FirstFragment>(this, "call_tab", FirstFragment.class)));
+        actionbar.addTab(actionbar.newTab().setText("통화하기").setTabListener(new TabListener<DialFragment>(this, "call_tab", DialFragment.class)));
 
     }
 
