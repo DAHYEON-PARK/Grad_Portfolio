@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.*;
 
+import com.example.ttong.Fragment.ContactFragment;
 import com.example.ttong.Fragment.DialFragment;
+import com.example.ttong.Fragment.HistoryFragment;
+import com.example.ttong.Fragment.TtongFragment;
 import com.example.ttong.R;
 
 public class MainActivity extends Activity {
@@ -21,9 +24,22 @@ public class MainActivity extends Activity {
         abar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         Tab dialTab = abar.newTab();
-        dialTab.setText("dial");
+        dialTab.setText("Dial");
         dialTab.setTabListener(new ProductTabListener(this, DialFragment.class.getName()));
         abar.addTab(dialTab);
+
+        Tab ttongTab = abar.newTab();
+        ttongTab.setText("TTong");
+        ttongTab.setTabListener(new ProductTabListener(this, TtongFragment.class.getName()));
+        abar.addTab(ttongTab);
+
+        Tab historyTab = abar.newTab();
+        historyTab.setText("History");
+        historyTab.setTabListener(new ProductTabListener(this, HistoryFragment.class.getName()));
+
+        Tab contactTab = abar.newTab();
+        contactTab.setText("Contact");
+        contactTab.setTabListener(new ProductTabListener(this, ContactFragment.class.getName()));
     }
 
     private class ProductTabListener implements ActionBar.TabListener{
