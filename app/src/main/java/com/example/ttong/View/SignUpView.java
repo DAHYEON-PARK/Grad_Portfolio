@@ -45,14 +45,13 @@ public class SignUpView extends ViewGroup{
             public void onClick(View v) {
                     int error_check = 0;
                         try {
-                            // 여기 고쳐야함!!!!!!
-                            Class.forName("oracle.jdbc.driver.OracleDriver");
-                            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:3306:   ", "root", null);
+                            Class.forName("com.mysql.jdbc.Driver");
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ttong", "root", null);
                             PreparedStatement pStmt = conn.prepareStatement("insert into Users values(?,?)");
 
                             pStmt.setString(1, mac_addr);
                             pStmt.setString(2, phone_num);
-                            pStmt.executeQuery();
+                            pStmt.executeUpdate();
 
                             error_check++;
 
