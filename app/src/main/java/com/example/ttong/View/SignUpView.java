@@ -1,14 +1,17 @@
 package com.example.ttong.View;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.example.ttong.R;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,20 +29,27 @@ public class SignUpView extends ViewGroup{
 
     }
 
-    public SignUpView(Context context) {
+    public SignUpView(final Context context) {
         super(context);
 
+        // get mac address
         WifiManager wifi_mng = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
         WifiInfo info = wifi_mng.getConnectionInfo();
         final String mac_addr = info.getMacAddress();
 
+        // get phone #
         TelephonyManager tel_mng = (TelephonyManager)context.getSystemService(context.TELEPHONY_SERVICE);
         final String phone_num = tel_mng.getLine1Number();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.fragment_signup, null, false);
 
-        button_next = (Button) view.findViewById(R.id.button_next);
+        // show phone number
+        TextView phone = (TextView)findViewById(R.id.phone_num);
+        phone.setText(phone_num);
+
+        // when the start button clicked!
+        button_next = (Button) view.findViewById(R.id.button_start);
         button_next.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,10 +66,20 @@ public class SignUpView extends ViewGroup{
                             error_check++;
 
                             if (error_check > 0) {
-                               System.out.println("Safely registered!");
+                                System.out.println("Safely registered! You can now use TTong!");
+                                // go to the friend list page!
                             }
                         } catch (Exception e) {
                             System.out.println("Exception : " + e);
+                            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                            alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            alert.setMessage("Sorry, we cannot register now!");
+                            alert.show();
                         }
             }
         });
