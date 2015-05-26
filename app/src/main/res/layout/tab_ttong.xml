@@ -3,11 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="This is history."
-        android:textColor="#FFFF00"
-        android:textSize="20dp"/>
-
+    // ttong tab
+    <TextView android:text="Ttong Tab"
+        android:padding="15dip"
+        android:textSize="18dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

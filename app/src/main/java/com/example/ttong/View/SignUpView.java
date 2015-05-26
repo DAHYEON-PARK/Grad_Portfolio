@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
@@ -37,7 +36,7 @@ public class SignUpView extends ViewGroup{
         final String phone_num = tel_mng.getLine1Number();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.fragment_signup, null, false);
+        View view = inflater.inflate(R.layout.tab_signup, null, false);
 
         button_next = (Button) view.findViewById(R.id.button_next);
         button_next.setOnClickListener(new OnClickListener() {
@@ -46,7 +45,7 @@ public class SignUpView extends ViewGroup{
                     int error_check = 0;
                         try {
                             Class.forName("com.mysql.jdbc.Driver");
-                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ttong", "root", null);
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tab_ttong", "root", null);
                             PreparedStatement pStmt = conn.prepareStatement("insert into Users values(?,?)");
 
                             pStmt.setString(1, mac_addr);

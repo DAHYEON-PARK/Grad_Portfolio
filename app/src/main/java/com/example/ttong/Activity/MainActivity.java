@@ -1,71 +1,92 @@
 package com.example.ttong.Activity;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.ActionBar;
-import android.app.ActionBar.*;
+import android.util.Log;
+import android.widget.TabHost;
 
-import com.example.ttong.Fragment.ContactFragment;
-import com.example.ttong.Fragment.DialFragment;
-import com.example.ttong.Fragment.HistoryFragment;
-import com.example.ttong.Fragment.TtongFragment;
+import com.example.ttong.Tab.ContactTab;
+import com.example.ttong.Tab.DialTab;
+import com.example.ttong.Tab.HistoryTab;
+import com.example.ttong.Tab.TtongTab;
 import com.example.ttong.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends TabActivity implements TabHost.OnTabChangeListener{
+    TabHost tabHost;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar abar = getActionBar();
-        abar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        tabHost = getTabHost();
 
-        Tab dialTab = abar.newTab();
-        dialTab.setText("Dial");
-        dialTab.setTabListener(new ProductTabListener(this, DialFragment.class.getName()));
-        abar.addTab(dialTab);
+        tabHost.setOnTabChangedListener(this);
 
-        Tab ttongTab = abar.newTab();
-        ttongTab.setText("TTong");
-        ttongTab.setTabListener(new ProductTabListener(this, TtongFragment.class.getName()));
-        abar.addTab(ttongTab);
+        TabHost.TabSpec spec;
+        Intent intent;
 
-        Tab historyTab = abar.newTab();
-        historyTab.setText("History");
-        historyTab.setTabListener(new ProductTabListener(this, HistoryFragment.class.getName()));
+        // DialTab
+        intent = new Intent().setClass(this, DialTab.class);
+        spec = tabHost.newTabSpec("Dial").setIndicator("").setContent(intent);
 
-        Tab contactTab = abar.newTab();
-        contactTab.setText("Contact");
-        contactTab.setTabListener(new ProductTabListener(this, ContactFragment.class.getName()));
+        tabHost.addTab(spec);
+
+        //TtongTab
+        intent = new Intent().setClass(this, TtongTab.class);
+        spec = tabHost.newTabSpec("Ttong").setIndicator("").setContent(intent);
+
+        tabHost.addTab(spec);
+
+        //HistoryTab
+        intent = new Intent().setClass(this, HistoryTab.class);
+        spec = tabHost.newTabSpec("History").setIndicator("").setContent(intent);
+
+        tabHost.addTab(spec);
+
+        //ContactTab
+        intent = new Intent().setClass(this, ContactTab.class);
+        spec = tabHost.newTabSpec("Contact").setIndicator("").setContent(intent);
+
+        tabHost.addTab(spec);
+
+        //set default tab and change image
+        /*
+        tabHost.getTabWidget().setCurrentTab(0);
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tab1_over);
+        */
+
     }
 
-    private class ProductTabListener implements ActionBar.TabListener{
-        private Fragment mFragment;
-        private final Activity mActivity;
-        private final String mFragName;
-
-        public ProductTabListener(Activity activity, String fragName){
-            mActivity = activity;
-            mFragName = fragName;
+    public void onTabChanged(String tabID){
+        for(int i=0;i<tabHost.getTabWidget().getChildCount();i++){
+            if(i==0){
+                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.dial);
+            }
+            else if(i==1){
+                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.ttong);
+            }
+            else if(i==2){
+                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.history);
+            }
+            else if(i==3){
+                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.contact);
+            }
         }
 
-        public void onTabReselected(Tab tab, FragmentTransaction arg1){
-        }
+        Log.i("tabs", "CurrentTab : " + tabHost.getCurrentTab());
 
-        // tab selected
-        public void onTabSelected(Tab tab, FragmentTransaction ft){
-            mFragment = Fragment.instantiate(mActivity,mFragName);
-            ft.add(android.R.id.content, mFragment);
+        if(tabHost.getCurrentTab()==0){
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.dial_over);
         }
-
-        // tab unselected
-        public void onTabUnselected(Tab tab, FragmentTransaction ft){
-            ft.remove(mFragment);
-            mFragment = null;
+        else if(tabHost.getCurrentTab()==1){
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.ttong_over);
+        }
+        else if(tabHost.getCurrentTab()==2){
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.history_over);
+        }
+        else if(tabHost.getCurrentTab()==3){
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.contact_over);
         }
     }
 }
-
