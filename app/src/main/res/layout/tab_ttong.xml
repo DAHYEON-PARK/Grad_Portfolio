@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/framelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ListView android:id="@+id/friendslistlist"
-        android:layout_weight="7"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+
     <LinearLayout
-        android:layout_weight="2.5"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Switch
-            android:id="@+id/tts"
+        android:layout_height="match_parent">
+
+        <ListView android:id="@+id/friendslistlist"
+            android:layout_weight="9"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:text="Text To Speech" />
-        <Switch
-            android:id="@+id/stt"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:text="Speech To Text" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <Switch
+                android:id="@+id/tts"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Text To Speech" />
+            <Switch
+                android:id="@+id/stt"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Speech To Text" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

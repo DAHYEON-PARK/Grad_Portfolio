@@ -14,17 +14,19 @@ public class TtongTab extends Activity {
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.tab_ttong);
 
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         SignUpView signUpView = new SignUpView(this);
         signUpView.setVisibility(View.GONE);
-        FrameLayout.LayoutParams parmas = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
 
         if(true){
-            signUpView.setVisibility(View.VISIBLE);
-            setContentView(signUpView,parmas);
+           signUpView.setVisibility(View.VISIBLE);
+
         }
         else{
-            setContentView(R.layout.tab_ttong);
+
         }
     }
 }

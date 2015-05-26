@@ -22,8 +22,6 @@ import java.sql.PreparedStatement;
  */
 public class SignUpView extends View{
 
-    Button button_next;
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
@@ -45,11 +43,11 @@ public class SignUpView extends View{
         View view = inflater.inflate(R.layout.view_signup, null, false);
 
         // show phone number
-        TextView phone = (TextView)findViewById(R.id.phone_num);
-        //phone.setText(phone_num);
+        TextView phone = (TextView) view.findViewById(R.id.phone_num);
+        phone.setText(phone_num);
 
         // when the start button clicked!
-        button_next = (Button) view.findViewById(R.id.button_start);
+        Button button_next = (Button) view.findViewById(R.id.button_start);
         button_next.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
