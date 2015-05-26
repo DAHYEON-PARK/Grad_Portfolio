@@ -42,7 +42,7 @@ public class SignUpView extends ViewGroup{
         final String phone_num = tel_mng.getLine1Number();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.tab_signup, null, false);
+        View view = inflater.inflate(R.layout.fragment_signup, null, false);
 
         // show phone number
         TextView phone = (TextView)findViewById(R.id.phone_num);
@@ -53,34 +53,34 @@ public class SignUpView extends ViewGroup{
         button_next.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                    int error_check = 0;
-                        try {
-                            Class.forName("com.mysql.jdbc.Driver");
-                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tab_ttong", "root", null);
-                            PreparedStatement pStmt = conn.prepareStatement("insert into Users values(?,?)");
+                int error_check = 0;
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ttong", "root", null);
+                    PreparedStatement pStmt = conn.prepareStatement("insert into Users values(?,?)");
 
-                            pStmt.setString(1, mac_addr);
-                            pStmt.setString(2, phone_num);
-                            pStmt.executeUpdate();
+                    pStmt.setString(1, mac_addr);
+                    pStmt.setString(2, phone_num);
+                    pStmt.executeUpdate();
 
-                            error_check++;
+                    error_check++;
 
-                            if (error_check > 0) {
-                                System.out.println("Safely registered! You can now use TTong!");
-                                // go to the friend list page!
-                            }
-                        } catch (Exception e) {
-                            System.out.println("Exception : " + e);
-                            AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                            alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            alert.setMessage("Sorry, we cannot register now!");
-                            alert.show();
+                    if (error_check > 0) {
+                        System.out.println("Safely registered! You can now use TTong!");
+                        // go to the friend list page!
+                    }
+                } catch (Exception e) {
+                    System.out.println("Exception : " + e);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
+                    });
+                    alert.setMessage("Sorry, we cannot register now!");
+                    alert.show();
+                }
             }
         });
     }
