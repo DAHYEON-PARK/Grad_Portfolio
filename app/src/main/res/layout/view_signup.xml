@@ -13,7 +13,7 @@
     android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@mipmap/app_icon_demo"/>
+    android:src="@drawable/app_icon_demo"/>
 <TextView
     android:id="@+id/blank1"
     android:layout_weight="2"

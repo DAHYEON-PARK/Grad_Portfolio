@@ -50,14 +50,18 @@ public class MainActivity extends TabActivity implements TabHost.OnTabChangeList
 
         tabHost.addTab(spec);
 
-        //set default tab and change image
-        /*
+        // default tab is dial tab
         tabHost.getTabWidget().setCurrentTab(0);
-        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tab1_over);
-        */
+
+        // tab widget image
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.dial_over);
+        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.ttong);
+        tabHost.getTabWidget().getChildAt(2).setBackgroundResource(R.drawable.history);
+        tabHost.getTabWidget().getChildAt(3).setBackgroundResource(R.drawable.contact);
 
     }
 
+    // tab changed
     public void onTabChanged(String tabID){
         for(int i=0;i<tabHost.getTabWidget().getChildCount();i++){
             if(i==0){
@@ -74,6 +78,7 @@ public class MainActivity extends TabActivity implements TabHost.OnTabChangeList
             }
         }
 
+        // just information
         Log.i("tabs", "CurrentTab : " + tabHost.getCurrentTab());
 
         if(tabHost.getCurrentTab()==0){
