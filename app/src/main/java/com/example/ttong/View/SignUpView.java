@@ -43,8 +43,10 @@ public class SignUpView extends View{
         View view = inflater.inflate(R.layout.view_signup, null, false);
 
         // show phone number
+        /*
         TextView phone = (TextView) view.findViewById(R.id.phone_num);
         phone.setText(phone_num);
+        */
 
         // when the start button clicked!
         Button button_next = (Button) view.findViewById(R.id.button_start);
@@ -81,7 +83,5 @@ public class SignUpView extends View{
                 }
             }
         });
-
-
     }
 }
