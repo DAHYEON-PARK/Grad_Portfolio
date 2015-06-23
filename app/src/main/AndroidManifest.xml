@@ -7,8 +7,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <activity android:name="com.example.ttong.Activity.MainActivity"></activity>
+        <activity android:name=".Tab.DialTab"></activity>
+        <activity android:name=".Tab.TtongTab"></activity>
+        <activity android:name=".Tab.HistoryTab"></activity>
+        <activity android:name=".Tab.ContactTab"></activity>
+        <activity android:name=".View.RecordView"></activity>
+        <activity android:name=".View.SttView"></activity>
+
         <activity
-            android:name="com.example.ttong.Activity.MainActivity"
+            android:name=".VoiceTransport.UDP_Connection"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,17 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Tab.DialTab"></activity>
-        <activity android:name=".Tab.TtongTab"></activity>
-        <activity android:name=".Tab.HistoryTab"></activity>
-        <activity android:name=".Tab.ContactTab"></activity>
-        <activity android:name=".View.RecordView"></activity>
-        <activity android:name=".View.SttView"></activity>
+
     </application>
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>
 
 
