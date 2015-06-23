@@ -22,6 +22,7 @@
         <activity android:name=".Tab.ContactTab"></activity>
         <activity android:name=".View.RecordView"></activity>
         <activity android:name=".View.SttView"></activity>
+        <activity android:name=".View.TtsView"></activity>
     </application>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

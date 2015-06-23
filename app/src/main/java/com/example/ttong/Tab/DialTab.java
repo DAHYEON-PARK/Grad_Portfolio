@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.ttong.R;
 import com.example.ttong.View.SttView;
+import com.example.ttong.View.TtsView;
 
 public class DialTab extends Activity implements View.OnClickListener{
 
@@ -15,14 +16,23 @@ public class DialTab extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_dial);
 
-        Button btn1 = (Button)findViewById(R.id.button1);
-        btn1.setOnClickListener(this);
+        Button btn_stt = (Button)findViewById(R.id.button1);
+        btn_stt.setOnClickListener(this);
+
+        Button btn_tts = (Button)findViewById(R.id.button2);
+        btn_tts.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this,SttView.class);
-        startActivity(intent);
+        switch(v.getId()){
+            case R.id.button1 :
+                Intent intent1 = new Intent(this,SttView.class);
+                startActivity(intent1);
+            case R.id.button2 :
+                Intent intent2 = new Intent(this,TtsView.class);
+                startActivity(intent2);
+        }
     }
 }
 
