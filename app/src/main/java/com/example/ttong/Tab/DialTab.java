@@ -29,9 +29,11 @@ public class DialTab extends Activity implements View.OnClickListener{
             case R.id.button1 :
                 Intent intent1 = new Intent(this,SttView.class);
                 startActivity(intent1);
+                break;
             case R.id.button2 :
                 Intent intent2 = new Intent(this,TtsView.class);
                 startActivity(intent2);
+                break;
         }
     }
 }
