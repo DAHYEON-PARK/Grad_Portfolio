@@ -1,59 +1,54 @@
 package com.example.ttong.VoiceTransport;
 
-/**
- * Created by cse109 on 2015-06-23.
- */
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Arrays;
 
 import android.util.Log;
 
+
 public class UDP_Client implements Runnable {
 
-    String clientIp;
-    int clientPort;
-    String msg;
+    private String serverIp;
+    private int serverPort;
+    private InetAddress serverAddr, clientAddr;
+
+    private String msg;
+    private final int bufSize = 30;
 
 
+    UDP_Client(String ip, int port){
+        serverIp = ip;
+        serverPort = port;
+    }
 
 
-    UDP_Client(String msg, String ip, int port){
+    public void setMsg(String msg){
         this.msg = msg;
-        clientIp = ip;
-        clientPort = port;
     }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+
         try {
-            /* Retrieve the ServerName */
-            InetAddress serverAddr = InetAddress.getByName(clientIp);
+            serverAddr = InetAddress.getByName(serverIp);
+            Log.d("UDP", "C_serverAddr: " + serverAddr);
 
-            Log.d("UDP", "C_Addr : "+serverAddr);
-            Log.d("UDP", "C: Connecting...");
-            /* Create new UDP-Socket */
             DatagramSocket socket = new DatagramSocket();
+            Log.d("UDP", "C: Connecting");
 
-            /* Prepare some data to be sent. */
-            byte[] buf = new byte[30];
-
-            buf = ("client, " + msg).getBytes();
-
-            /* Create UDP-packet with
-             * data & destination(url+port) */
-            DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, clientPort);
-            Log.d("UDP", "C: Sending: '" + new String(buf) + "'");
-
-            /* Send out the packet */
+            byte[] buf = new byte[bufSize];
+            Arrays.fill(buf, (byte) 0);
+            buf = ("^^" + msg).getBytes();
+            DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, serverPort);
             socket.send(packet);
-            Log.d("UDP", "C: Sent.");
-            Log.d("UDP", "C: Done.");
+            Log.d("UDP", "C: Send '" + new String(buf) + "'");
 
+            Arrays.fill(buf, (byte) 0);
             socket.receive(packet);
-            Log.d("UDP", "C: Received: '" + new String(packet.getData()) + "'");
+            Log.d("UDP", "C: Received '" + new String(packet.getData()) + "'");
 
         } catch (Exception e) {
             Log.e("UDP", "C: Error", e);

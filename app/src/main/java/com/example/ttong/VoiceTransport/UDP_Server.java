@@ -1,72 +1,83 @@
 package com.example.ttong.VoiceTransport;
 
-/**
- * Created by cse109 on 2015-06-23.
- */
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Arrays;
 
+import android.content.Context;
 import android.util.Log;
+
 
 public class UDP_Server implements Runnable {
 
-    String serverIp;
-    int serverPort;
-    String msg;
+    private String serverIp;
+    private int serverPort;
+    private InetAddress serverAddr, clientAddr;
+    private int clientPort;
 
-    //public static String serverIp = "";
-    //public static int serverPort = 0;
+    private String msg;
+    private final int bufSize = 30;
 
-    UDP_Server(String msg, String ip, int port){
-        this.msg = msg;
+    DatagramSocket socket;
+
+    UDP_Server(String ip, int port){
         serverIp = ip;
         serverPort = port;
+
+
+    }
+
+    public void init(){
+        try {
+            serverAddr = InetAddress.getByName(serverIp);
+            Log.d("UDP", "S_serverAddr: " + serverAddr);
+            socket = new DatagramSocket(serverPort, serverAddr);
+            Log.d("UDP", "S: Connecting");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setMsg(String msg){
+
+
     }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+
         try {
-            /* Retrieve the ServerName */
-            InetAddress serverAddr = InetAddress.getByName(serverIp);
 
-            Log.d("UDP", "S_Addr : "+serverAddr);
-            Log.d("UDP", "S: Connecting...");
-            /* Create new UDP-Socket */
-            DatagramSocket socket = new DatagramSocket(serverPort, serverAddr);
 
-            /* By magic we know, how much data will be waiting for us */
 
-            byte[] buf = new byte[30];
+            //while(true) {
 
-            /* Prepare a UDP-Packet that can
-             * contain the data we want to receive */
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            Log.d("UDP", "S: Receiving...");
 
-            /* Receive the UDP-Packet */
-            socket.receive(packet);
+                byte[] buf = new byte[bufSize];
+                Arrays.fill(buf, (byte) 0);
+                DatagramPacket packet = new DatagramPacket(buf, bufSize);
+                socket.receive(packet);
+                Log.d("UDP", "S: Received '" + new String(packet.getData()) + "'");
 
-            Log.d("UDP", "S: Received: '" + new String(packet.getData()) + "'");
-            Log.d("UDP", "S: Done.");
 
-            InetAddress clientAddr = packet.getAddress();
-            int clientPort = packet.getPort();
+                clientAddr = packet.getAddress();
+                clientPort = packet.getPort();
+                Log.d("UDP", "S_clientAddr: " + clientAddr);
+                Log.d("UDP", "S_clientPort: " + clientPort);
 
-            Log.d("UDP", "S_clientAddr : "+clientAddr);
-            Log.d("UDP", "S_clientPort : "+clientPort);
-
-            //String s = "Thanks";
-            buf = ("server, "+msg).getBytes();
-            packet = new DatagramPacket(buf, buf.length, clientAddr, clientPort);
-
-            Log.d("UDP", "S: Sending: '" + new String(buf) + "'");
-            socket.send(packet);
-
+                Arrays.fill(buf, (byte) 0);
+                buf = ("server 'I'm OK'").getBytes();
+                packet = new DatagramPacket(buf, buf.length, clientAddr, clientPort);
+                socket.send(packet);
+                Log.d("UDP", "S: Send '" + new String(buf) + "'");
+           // }
         } catch (Exception e) {
+
             Log.e("UDP", "S: Error", e);
+
         }
     }
 }
