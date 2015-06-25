@@ -95,6 +95,8 @@ public class TtsView extends Activity implements TextToSpeech.OnInitListener, Vi
         //If no text is typed, tts will read out 'You haven't typed text'
         //else it reads out the text you typed
         if (text.length() == 0) {
+            tts.setPitch((float)0.5);
+            tts.setSpeechRate((float)0.01);
             tts.speak("하고 싶은 말을 입력해주세요.", TextToSpeech.QUEUE_FLUSH, null);
         } else {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
