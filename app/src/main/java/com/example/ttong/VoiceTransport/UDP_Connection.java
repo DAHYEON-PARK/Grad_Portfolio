@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +25,11 @@ public class UDP_Connection extends Activity implements View.OnClickListener {
 
     String msg;
 
-    String ipAddr;
     int ip;
     int port=4444;
+    String ipAddr;
 
     Thread th_S, th_C;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,20 +46,41 @@ public class UDP_Connection extends Activity implements View.OnClickListener {
         ip_port_Tv.setText("ip : " + ipAddr + "\nport : " + port);
 
         msg_Et = (EditText) findViewById(R.id.msg_Et);
-        msg = msg_Et.getText().toString();
 
         udpSend_Btn = (Button) findViewById(R.id.udpSend_Btn);
         udpSend_Btn.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
+
+        msg = msg_Et.getText().toString();
+
+        Log.d("UDP_server", ipAddr + " & " + port + " & " + msg);
+
+        //UDP_Server s = new UDP_Server(msg, "127.0.0.1", port);
+        //UDP_Client c = new UDP_Client(msg, "127.0.0.1", port);
         UDP_Server s = new UDP_Server(msg, ipAddr, port);
+        UDP_Client c = new UDP_Client(msg, ipAddr, port);
+
+        //new Thread(new UDP_Server(msg,ipAddr,port)).start();
+
         th_S = new Thread(s);
         th_S.start();
 
-        UDP_Client c = new UDP_Client(msg, ipAddr, port);
-        th_C = new Thread();
+        //new Thread(s).start();
+        //new Thread(c).start();
+
+        try{
+            Thread.sleep(500);
+        }catch (InterruptedException e){
+
+        }
+
+        //new Thread(new UDP_Client(msg,ipAddr,port)).start();
+
+        th_C = new Thread(c);
         th_C.start();
     }
 }

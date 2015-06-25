@@ -16,6 +16,9 @@ public class UDP_Server implements Runnable {
     int serverPort;
     String msg;
 
+    //public static String serverIp = "";
+    //public static int serverPort = 0;
+
     UDP_Server(String msg, String ip, int port){
         this.msg = msg;
         serverIp = ip;
@@ -29,12 +32,15 @@ public class UDP_Server implements Runnable {
             /* Retrieve the ServerName */
             InetAddress serverAddr = InetAddress.getByName(serverIp);
 
+            Log.d("UDP", "S_Addr : "+serverAddr);
             Log.d("UDP", "S: Connecting...");
             /* Create new UDP-Socket */
             DatagramSocket socket = new DatagramSocket(serverPort, serverAddr);
 
             /* By magic we know, how much data will be waiting for us */
-            byte[] buf = new byte[17];
+
+            byte[] buf = new byte[30];
+
             /* Prepare a UDP-Packet that can
              * contain the data we want to receive */
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
@@ -48,8 +54,12 @@ public class UDP_Server implements Runnable {
 
             InetAddress clientAddr = packet.getAddress();
             int clientPort = packet.getPort();
-            String s = "Thanks";
-            buf = s.getBytes();
+
+            Log.d("UDP", "S_clientAddr : "+clientAddr);
+            Log.d("UDP", "S_clientPort : "+clientPort);
+
+            //String s = "Thanks";
+            buf = ("server, "+msg).getBytes();
             packet = new DatagramPacket(buf, buf.length, clientAddr, clientPort);
 
             Log.d("UDP", "S: Sending: '" + new String(buf) + "'");

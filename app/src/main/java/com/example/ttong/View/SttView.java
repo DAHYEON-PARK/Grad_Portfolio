@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
+import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.view.View;
@@ -19,6 +20,8 @@ public class SttView extends Activity implements View.OnClickListener{
     private Button btn1;
     private TextView tv1;
     SpeechRecognizer mRecognizer;
+    RecognitionService rs;
+    RecognizerIntent ri;
     Intent i;
 
     protected void onCreate(Bundle savedInstanceState){
@@ -35,7 +38,7 @@ public class SttView extends Activity implements View.OnClickListener{
         mRecognizer.setRecognitionListener(listener);
 
         i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        i.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+       // i.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");
     }
 
@@ -75,9 +78,11 @@ public class SttView extends Activity implements View.OnClickListener{
             String key = "";
             key = SpeechRecognizer.RESULTS_RECOGNITION;
             ArrayList<String> mResult = results.getStringArrayList(key);
-            String[] rs = new String[mResult.size()];
-            mResult.toArray(rs);
-            tv1.setText(""+rs[0]);
+            //String[] rs = new String[mResult.size()];
+            //mResult.toArray(rs);
+            //tv1.setText(""+rs[0]);
+
+
         }
 
         @Override

@@ -16,6 +16,9 @@ public class UDP_Client implements Runnable {
     int clientPort;
     String msg;
 
+
+
+
     UDP_Client(String msg, String ip, int port){
         this.msg = msg;
         clientIp = ip;
@@ -26,15 +29,18 @@ public class UDP_Client implements Runnable {
     public void run() {
         // TODO Auto-generated method stub
         try {
-            // Retrieve the ServerName
+            /* Retrieve the ServerName */
             InetAddress serverAddr = InetAddress.getByName(clientIp);
 
+            Log.d("UDP", "C_Addr : "+serverAddr);
             Log.d("UDP", "C: Connecting...");
             /* Create new UDP-Socket */
             DatagramSocket socket = new DatagramSocket();
 
             /* Prepare some data to be sent. */
-            byte[] buf = ("Hello from Client").getBytes();
+            byte[] buf = new byte[30];
+
+            buf = ("client, " + msg).getBytes();
 
             /* Create UDP-packet with
              * data & destination(url+port) */
